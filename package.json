@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "elm package install -y",
     "build": "export NODE_ENV=production && webpack -p",
-    "start": "webpack-dev-server --hot --inline --port 3000",
+    "start": "webpack-dev-server --hot --inline --port 3001",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {},
