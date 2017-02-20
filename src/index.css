@@ -58,11 +58,11 @@ body, html {
 /* Custom */
 body {
   background-color: #F5F8FA;
+  font-family: Roboto;
   height: 100%;
-  color: blue;
 }
 
-#root {
+#root, .app {
   height: 100%;
   width: 100%;
 }
@@ -72,4 +72,26 @@ body {
   width: 100%;
   background: linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://res.cloudinary.com/waiyaki/image/upload/v1487589382/bg-img_rtjeaz.jpg');
   background-size: cover;
+}
+
+.landing-page-content {
+  padding-top: 60px;
+  height: 100%;
+}
+
+.lead-content {
+  color: #F5F5F5;
+}
+
+.lead-content h1 {
+  font-size: 4.2em;
+}
+
+.lead-content h1, .lead-content p {
+  margin: 0.8em 0;
+}
+
+.lead-content p {
+  font-size: 1.2em;
+  line-height: 1.2em;
 }
