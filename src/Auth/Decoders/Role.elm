@@ -1,15 +1,15 @@
-module Decoders.Role exposing (..)
+module Auth.Decoders.Role exposing (..)
 
 import Json.Decode as Decode exposing (succeed)
 import Json.Decode.Extra exposing ((|:))
 import Auth.Models exposing (Role)
-import Decoders.Common exposing (stringDecoder, intDecoder, decoderFirstField)
+import Auth.Decoders.Common exposing (stringDecoder, intDecoder, decoderFirstField)
 
 
 decodeRole : Decode.Decoder Role
 decodeRole =
     succeed Role
-        |: stringDecoder "id"
+        |: stringDecoder "_id"
         |: intDecoder "accessLevel"
         |: stringDecoder "title"
 

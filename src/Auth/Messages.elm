@@ -1,5 +1,8 @@
 module Auth.Messages exposing (..)
 
+import Http
+import Auth.Models exposing (User)
+
 
 type Msg
     = UpdateUsername String
@@ -8,4 +11,6 @@ type Msg
     | UpdateEmail String
     | ToggleLogin
     | Login
+    | PerformLogin (Result Http.Error String)
     | Register
+    | PerformRegister (Result Http.Error ( User, String ))

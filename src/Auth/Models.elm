@@ -8,7 +8,7 @@ type alias User =
     , username : String
     , email : String
     , fullName : Maybe String
-    , name : Name
+    , name : Maybe Name
     , role : Role
     }
 
@@ -19,7 +19,7 @@ initialUser =
     , username = ""
     , email = ""
     , fullName = Nothing
-    , name = initialName
+    , name = Nothing
     , role = initialRole
     }
 
@@ -65,19 +65,25 @@ initialCredentials =
 
 
 
--- The error object will have same shape as the credentials.
+-- The error object will have (almost) the same shape as the credentials.
 
 
-type alias Errors =
-    Credentials
+type alias Error =
+    { username : Maybe String
+    , password : Maybe String
+    , passwordAgain : Maybe String
+    , email : Maybe String
+    , message : Maybe String
+    }
 
 
 type alias Model =
     { credentials : Credentials
-    , errors : Maybe Errors
+    , errors : Maybe Error
     , user : User
     , showingLogin : Bool
     , token : Maybe String
+    , isAuthenticated : Bool
     }
 
 
@@ -85,8 +91,9 @@ initialModel : Model
 initialModel =
     ({ credentials = initialCredentials
      , errors = Nothing
-     , showingLogin = True
      , user = initialUser
+     , showingLogin = True
      , token = Nothing
+     , isAuthenticated = False
      }
     )

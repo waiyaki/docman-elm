@@ -1,7 +1,11 @@
 module Auth.Update exposing (update)
 
+import Http exposing (Error(BadStatus))
+import Json.Decode as Decode
 import Auth.Models exposing (Model)
 import Auth.Messages exposing (Msg(..))
+import Auth.Commands exposing (login)
+import Auth.Decoders.Error exposing (errorDecoder)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -51,7 +55,52 @@ update msg model =
             ( { model | showingLogin = not model.showingLogin }, Cmd.none )
 
         Login ->
-            ( model, Cmd.none )
+            ( model, login model.credentials )
+
+        PerformLogin (Ok token) ->
+            ( { model | token = (Just token) }, Cmd.none )
+
+        PerformLogin (Err error) ->
+            case error of
+                BadStatus { body } ->
+                    let
+                        errors =
+                            parseErrors body
+                    in
+                        ( { model | errors = Just errors }, Cmd.none )
+
+                _ ->
+                    ( { model
+                        | errors = Just (parseErrors genericErrorMessage)
+                      }
+                    , Cmd.none
+                    )
 
         Register ->
             ( model, Cmd.none )
+
+        _ ->
+            ( model, Cmd.none )
+
+
+genericErrorMessage : String
+genericErrorMessage =
+    """{ message = "An error occurred when attempting to log in." }"""
+
+
+
+{- Parse errors from the server or otherwise. Fall back to a genericmessage if parsing fails. -}
+
+
+parseErrors : String -> Auth.Models.Error
+parseErrors body =
+    let
+        errors =
+            Decode.decodeString errorDecoder body
+    in
+        case errors of
+            Ok error ->
+                error
+
+            Err error ->
+                parseErrors genericErrorMessage

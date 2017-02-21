@@ -1,4 +1,4 @@
-module Decoders.Common exposing (..)
+module Auth.Decoders.Common exposing (..)
 
 import Json.Decode as Decode exposing (string, int, field)
 

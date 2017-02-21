@@ -1,9 +1,9 @@
-module Decoders.User exposing (..)
+module Auth.Decoders.User exposing (..)
 
 import Json.Decode as Decode exposing (string, int, field, succeed, maybe, andThen)
 import Json.Decode.Extra exposing ((|:))
-import Decoders.Common exposing (stringDecoder, intDecoder, decoderFirstField)
-import Decoders.Role exposing (roleDecoder)
+import Auth.Decoders.Common exposing (stringDecoder, intDecoder, decoderFirstField)
+import Auth.Decoders.Role exposing (roleDecoder)
 import Auth.Models exposing (User, Name, Role)
 
 
@@ -26,5 +26,5 @@ userDecoder =
         |: stringDecoder "username"
         |: stringDecoder "email"
         |: maybe (stringDecoder "fullName")
-        |: nameDecoder "name"
+        |: maybe (nameDecoder "name")
         |: roleDecoder "role"
