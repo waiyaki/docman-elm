@@ -1,8 +1,12 @@
 /* Custom */
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background-color: #F5F8FA;
   font-family: Roboto;
-  height: 100%;
 }
 
 #root, .app {
@@ -20,6 +24,7 @@ body {
 .landing-page-content {
   padding-top: 60px;
   height: 100%;
+  width: 100%;
 }
 
 .lead-content {
@@ -37,4 +42,17 @@ body {
 .lead-content p {
   font-size: 1.2em;
   line-height: 1.2em;
+}
+
+p.credentials-input {
+  margin: 0 5%;
+}
+
+div.form-group {
+  margin-bottom: 2em;
+}
+
+.toggle-auth:active, .toggle-auth:focus {
+  outline: none;
+  text-decoration: none;
 }

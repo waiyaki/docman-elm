@@ -3,9 +3,11 @@ module Main exposing (..)
 import Html exposing (Html, program, div, text)
 import Models exposing (Model, init)
 import View exposing (view)
+import Messages exposing (Msg)
+import Update exposing (update)
 
 
-main : Program Never Model msg
+main : Program Never Model Msg
 main =
     program
         { init = init
@@ -13,11 +15,6 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
-
-
-update : msg -> Model -> ( Model, Cmd msg )
-update msg model =
-    ( model, Cmd.none )
 
 
 subscriptions : Model -> Sub msg

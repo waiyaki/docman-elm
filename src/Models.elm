@@ -1,11 +1,22 @@
 module Models exposing (Model, init)
 
+import Messages exposing (Msg)
+import Auth.Models
+
 
 type alias Model =
     { route : String
+    , authModel : Auth.Models.Model
     }
 
 
-init : ( Model, Cmd msg )
+initialModel : Model
+initialModel =
+    { route = ""
+    , authModel = Auth.Models.initialModel
+    }
+
+
+init : ( Model, Cmd Msg )
 init =
-    ( Model "", Cmd.none )
+    ( initialModel, Cmd.none )

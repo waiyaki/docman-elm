@@ -2,21 +2,29 @@ module LandingPage.View exposing (view)
 
 import Html exposing (Html, div, text, h1, p)
 import Html.Attributes exposing (class)
+import Auth.View exposing (login, register)
+import Auth.Messages exposing (Msg)
+import Auth.Models exposing (Model)
 
 
-view : Html msg
-view =
+view : Model -> Html Msg
+view model =
     div [ class "landing-page" ]
-        [ div [ class "row landing-page-content align-items-center justify-content-center text-center" ]
+        [ div [ class "row landing-page-content align-items-center justify-content-center" ]
             [ div [ class "col-md-8 hidden-sm-down" ] [ leadContent ]
-            , div [ class "col-md-4" ] [ text "Hey! The auth module goes here" ]
+            , div [ class "col-md-4" ]
+                [ if model.showingLogin then
+                    login
+                  else
+                    register
+                ]
             ]
         ]
 
 
 leadContent : Html msg
 leadContent =
-    div [ class "lead-content" ]
+    div [ class "lead-content text-center" ]
         [ h1 [] [ text "DocMan" ]
         , p [ class "lead" ] [ text "Share Your Thoughts With The World" ]
         , p [] [ text "With DocMan Document Manager, you can easily share what's on your mind with the world," ]
