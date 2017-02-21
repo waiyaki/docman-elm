@@ -52,7 +52,12 @@ div.form-group {
   margin-bottom: 2em;
 }
 
-.toggle-auth:active, .toggle-auth:focus {
-  outline: none;
+.toggle-auth {
+  color: inherit;
+}
+
+.toggle-auth:hover, .toggle-auth:focus {
+  cursor: pointer;
   text-decoration: none;
+  color: inherit;
 }

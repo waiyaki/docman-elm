@@ -1,13 +1,14 @@
 module Auth.View exposing (login, register)
 
 import Html exposing (Html, div, h4, p, text, hr, input, button, span)
-import Html.Attributes exposing (class, placeholder, type_)
+import Html.Attributes exposing (class, placeholder, type_, value)
 import Html.Events exposing (onInput, onClick)
 import Auth.Messages exposing (Msg(..))
+import Auth.Models exposing (Credentials)
 
 
-login : Html Msg
-login =
+login : Credentials -> Html Msg
+login credentials =
     div [ class "card" ]
         [ div [ class "card-block" ]
             [ h4 [ class "card-title text-center" ] [ text "Login" ]
@@ -18,6 +19,7 @@ login =
                         [ placeholder "Username"
                         , class "form-control"
                         , onInput UpdateUsername
+                        , value credentials.username
                         ]
                         []
                     ]
@@ -27,6 +29,7 @@ login =
                         , class "form-control"
                         , type_ "password"
                         , onInput UpdatePassword
+                        , value credentials.password
                         ]
                         []
                     ]
@@ -45,8 +48,8 @@ login =
         ]
 
 
-register : Html Msg
-register =
+register : Credentials -> Html Msg
+register credentials =
     div [ class "card" ]
         [ div [ class "card-block" ]
             [ h4 [ class "card-title text-center" ] [ text "Register" ]
@@ -57,6 +60,7 @@ register =
                         [ placeholder "Username"
                         , class "form-control"
                         , onInput UpdateUsername
+                        , value credentials.username
                         ]
                         []
                     ]
@@ -66,6 +70,7 @@ register =
                         , class "form-control"
                         , type_ "email"
                         , onInput UpdateEmail
+                        , value credentials.email
                         ]
                         []
                     ]
@@ -75,6 +80,7 @@ register =
                         , class "form-control"
                         , type_ "password"
                         , onInput UpdatePassword
+                        , value credentials.password
                         ]
                         []
                     ]
@@ -84,6 +90,7 @@ register =
                         , class "form-control"
                         , type_ "password"
                         , onInput UpdatePasswordAgain
+                        , value credentials.passwordAgain
                         ]
                         []
                     ]
