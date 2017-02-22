@@ -1,4 +1,4 @@
-module Models exposing (Model, init, initialModel)
+module Models exposing (..)
 
 import Messages exposing (Msg)
 import Auth.Models
@@ -10,13 +10,23 @@ type alias Model =
     }
 
 
-initialModel : Model
-initialModel =
-    { route = ""
-    , authModel = Auth.Models.initialModel
+type alias Flags =
+    { token : Auth.Models.Token
     }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( initialModel, Cmd.none )
+emptyFlags : Flags
+emptyFlags =
+    { token = Nothing }
+
+
+initialModel : Flags -> Model
+initialModel flags =
+    { route = ""
+    , authModel = Auth.Models.initialModel flags.token
+    }
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( initialModel flags, Cmd.none )

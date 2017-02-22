@@ -1,15 +1,15 @@
 module Main exposing (..)
 
-import Html exposing (Html, program, div, text)
-import Models exposing (Model, init)
+import Html exposing (Html, programWithFlags, div, text)
+import Models exposing (Model, init, Flags)
 import View exposing (view)
 import Messages exposing (Msg)
 import Update exposing (update)
 
 
-main : Program Never Model Msg
+main : Program Flags Model Msg
 main =
-    program
+    programWithFlags
         { init = init
         , view = view
         , update = update

@@ -98,13 +98,27 @@ type alias Model =
     }
 
 
-initialModel : Model
-initialModel =
-    ({ credentials = initialCredentials
-     , errors = initialError
-     , user = initialUser
-     , showingLogin = True
-     , token = Nothing
-     , isAuthenticated = False
-     }
-    )
+initialModel : Token -> Model
+initialModel token =
+    let
+        isAuthenticated =
+            hasToken token
+    in
+        ({ credentials = initialCredentials
+         , errors = initialError
+         , user = initialUser
+         , showingLogin = True
+         , token = token
+         , isAuthenticated = isAuthenticated
+         }
+        )
+
+
+hasToken : Token -> Bool
+hasToken token =
+    case token of
+        Just t ->
+            True
+
+        Nothing ->
+            False

@@ -1,8 +1,9 @@
 module Update exposing (update)
 
-import Models exposing (Model, initialModel)
+import Models exposing (Model, initialModel, emptyFlags)
 import Messages exposing (Msg(..))
 import Auth.Update
+import Auth.Ports as AuthPorts
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -16,4 +17,4 @@ update msg model =
                 ( { model | authModel = authModel }, Cmd.map AuthMessages cmd )
 
         Logout ->
-            ( initialModel, Cmd.none )
+            ( initialModel emptyFlags, AuthPorts.removeToken Nothing )

@@ -6,6 +6,7 @@ import Auth.Models exposing (Model, initialError, initialCredentials)
 import Auth.Messages exposing (Msg(..))
 import Auth.Commands exposing (login, register)
 import Auth.Decoders.Error exposing (errorDecoder)
+import Auth.Ports as Ports
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -69,7 +70,7 @@ update msg model =
                 , isAuthenticated = True
                 , credentials = initialCredentials
               }
-            , Cmd.none
+            , Ports.setToken token
             )
 
         PerformLogin (Err error) ->
@@ -86,7 +87,7 @@ update msg model =
                 , errors = initialError
                 , isAuthenticated = True
               }
-            , Cmd.none
+            , Ports.setToken user.token
             )
 
         PerformRegister (Err error) ->
