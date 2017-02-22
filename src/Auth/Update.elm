@@ -2,7 +2,7 @@ module Auth.Update exposing (update)
 
 import Http exposing (Error(BadStatus))
 import Json.Decode as Decode
-import Auth.Models exposing (Model)
+import Auth.Models exposing (Model, initialError)
 import Auth.Messages exposing (Msg(..))
 import Auth.Commands exposing (login)
 import Auth.Decoders.Error exposing (errorDecoder)
@@ -58,7 +58,12 @@ update msg model =
             ( model, login model.credentials )
 
         PerformLogin (Ok token) ->
-            ( { model | token = (Just token) }, Cmd.none )
+            ( { model
+                | token = (Just token)
+                , errors = initialError
+              }
+            , Cmd.none
+            )
 
         PerformLogin (Err error) ->
             case error of
@@ -67,11 +72,11 @@ update msg model =
                         errors =
                             parseErrors body
                     in
-                        ( { model | errors = Just errors }, Cmd.none )
+                        ( { model | errors = errors }, Cmd.none )
 
                 _ ->
                     ( { model
-                        | errors = Just (parseErrors genericErrorMessage)
+                        | errors = parseErrors genericErrorMessage
                       }
                     , Cmd.none
                     )
@@ -85,7 +90,7 @@ update msg model =
 
 genericErrorMessage : String
 genericErrorMessage =
-    """{ message = "An error occurred when attempting to log in." }"""
+    """{"message": "An error occurred when attempting to log in." }"""
 
 
 

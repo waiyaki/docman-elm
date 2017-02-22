@@ -14,7 +14,7 @@ view model =
             [ div [ class "col-md-8 hidden-sm-down" ] [ leadContent ]
             , div [ class "col-md-4" ]
                 [ if model.showingLogin then
-                    login model.credentials
+                    login model.credentials model.errors
                   else
                     register model.credentials
                 ]

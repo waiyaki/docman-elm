@@ -61,3 +61,7 @@ div.form-group {
   text-decoration: none;
   color: inherit;
 }
+
+.form-control {
+  border-radius: 0;
+}

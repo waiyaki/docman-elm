@@ -77,9 +77,14 @@ type alias Error =
     }
 
 
+initialError : Error
+initialError =
+    Error Nothing Nothing Nothing Nothing Nothing
+
+
 type alias Model =
     { credentials : Credentials
-    , errors : Maybe Error
+    , errors : Error
     , user : User
     , showingLogin : Bool
     , token : Maybe String
@@ -90,7 +95,7 @@ type alias Model =
 initialModel : Model
 initialModel =
     ({ credentials = initialCredentials
-     , errors = Nothing
+     , errors = initialError
      , user = initialUser
      , showingLogin = True
      , token = Nothing
