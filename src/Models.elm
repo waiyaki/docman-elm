@@ -1,4 +1,4 @@
-module Models exposing (Model, init)
+module Models exposing (Model, init, initialModel)
 
 import Messages exposing (Msg)
 import Auth.Models

@@ -5,3 +5,4 @@ import Auth.Messages
 
 type Msg
     = AuthMessages Auth.Messages.Msg
+    | Logout

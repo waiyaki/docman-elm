@@ -1,6 +1,6 @@
 module Update exposing (update)
 
-import Models exposing (Model)
+import Models exposing (Model, initialModel)
 import Messages exposing (Msg(..))
 import Auth.Update
 
@@ -14,3 +14,6 @@ update msg model =
                     Auth.Update.update subMsg model.authModel
             in
                 ( { model | authModel = authModel }, Cmd.map AuthMessages cmd )
+
+        Logout ->
+            ( initialModel, Cmd.none )
