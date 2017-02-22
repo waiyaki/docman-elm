@@ -52,7 +52,12 @@ update msg model =
                 ( { model | credentials = newCredentials }, Cmd.none )
 
         ToggleLogin ->
-            ( { model | showingLogin = not model.showingLogin }, Cmd.none )
+            ( { model
+                | showingLogin = not model.showingLogin
+                , errors = initialError
+              }
+            , Cmd.none
+            )
 
         Login ->
             ( model, login model.credentials )

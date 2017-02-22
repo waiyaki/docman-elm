@@ -2,7 +2,7 @@ module LandingPage.View exposing (view)
 
 import Html exposing (Html, div, text, h1, p)
 import Html.Attributes exposing (class)
-import Auth.View exposing (login, register)
+import Auth.View exposing (loginView, registerView)
 import Auth.Messages exposing (Msg)
 import Auth.Models exposing (Model)
 
@@ -14,9 +14,9 @@ view model =
             [ div [ class "col-md-8 hidden-sm-down" ] [ leadContent ]
             , div [ class "col-md-4" ]
                 [ if model.showingLogin then
-                    login model.credentials model.errors
+                    loginView model.credentials model.errors
                   else
-                    register model.credentials model.errors
+                    registerView model.credentials model.errors
                 ]
             ]
         ]
