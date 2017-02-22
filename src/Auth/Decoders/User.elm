@@ -4,6 +4,7 @@ import Json.Decode as Decode exposing (string, int, field, succeed, maybe, andTh
 import Json.Decode.Extra exposing ((|:))
 import Auth.Decoders.Common exposing (stringDecoder, intDecoder, decoderFirstField)
 import Auth.Decoders.Role exposing (roleDecoder)
+import Auth.Decoders.Token exposing (tokenDecoder)
 import Auth.Models exposing (User, Name, Role)
 
 
@@ -28,3 +29,4 @@ userDecoder =
         |: maybe (stringDecoder "fullName")
         |: maybe (nameDecoder "name")
         |: roleDecoder "role"
+        |: tokenDecoder

@@ -2,9 +2,9 @@ module Auth.Update exposing (update)
 
 import Http exposing (Error(BadStatus))
 import Json.Decode as Decode
-import Auth.Models exposing (Model, initialError)
+import Auth.Models exposing (Model, initialError, initialCredentials)
 import Auth.Messages exposing (Msg(..))
-import Auth.Commands exposing (login)
+import Auth.Commands exposing (login, register)
 import Auth.Decoders.Error exposing (errorDecoder)
 
 
@@ -59,33 +59,43 @@ update msg model =
 
         PerformLogin (Ok token) ->
             ( { model
-                | token = (Just token)
+                | token = token
                 , errors = initialError
+                , isAuthenticated = True
+                , credentials = initialCredentials
               }
             , Cmd.none
             )
 
         PerformLogin (Err error) ->
-            case error of
-                BadStatus { body } ->
-                    let
-                        errors =
-                            parseErrors body
-                    in
-                        ( { model | errors = errors }, Cmd.none )
-
-                _ ->
-                    ( { model
-                        | errors = parseErrors genericErrorMessage
-                      }
-                    , Cmd.none
-                    )
+            handleError model error
 
         Register ->
-            ( model, Cmd.none )
+            ( model, register model.credentials )
+
+        PerformRegister (Ok user) ->
+            ( { model
+                | user = user
+                , token = user.token
+                , credentials = initialCredentials
+                , errors = initialError
+                , isAuthenticated = True
+              }
+            , Cmd.none
+            )
+
+        PerformRegister (Err error) ->
+            handleError model error
+
+
+handleError : Model -> Error -> ( Model, Cmd Msg )
+handleError model error =
+    case error of
+        BadStatus { body } ->
+            ( { model | errors = parseErrors body }, Cmd.none )
 
         _ ->
-            ( model, Cmd.none )
+            ( { model | errors = parseErrors genericErrorMessage }, Cmd.none )
 
 
 genericErrorMessage : String

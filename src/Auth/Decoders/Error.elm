@@ -11,6 +11,6 @@ errorDecoder =
     succeed Error
         |: maybe (stringDecoder "username")
         |: maybe (stringDecoder "password")
-        |: maybe (stringDecoder "email")
         |: maybe (stringDecoder "passwordAgain")
+        |: maybe (stringDecoder "email")
         |: maybe (stringDecoder "message")

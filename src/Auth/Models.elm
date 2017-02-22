@@ -10,6 +10,7 @@ type alias User =
     , fullName : Maybe String
     , name : Maybe Name
     , role : Role
+    , token : Token
     }
 
 
@@ -21,6 +22,7 @@ initialUser =
     , fullName = Nothing
     , name = Nothing
     , role = initialRole
+    , token = Nothing
     }
 
 
@@ -82,12 +84,16 @@ initialError =
     Error Nothing Nothing Nothing Nothing Nothing
 
 
+type alias Token =
+    Maybe String
+
+
 type alias Model =
     { credentials : Credentials
     , errors : Error
     , user : User
     , showingLogin : Bool
-    , token : Maybe String
+    , token : Token
     , isAuthenticated : Bool
     }
 

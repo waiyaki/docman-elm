@@ -1,9 +1,10 @@
 module Auth.Decoders.Token exposing (tokenDecoder)
 
 import Json.Decode as Decode
+import Auth.Models exposing (Token)
 import Auth.Decoders.Common exposing (stringDecoder)
 
 
-tokenDecoder : Decode.Decoder String
+tokenDecoder : Decode.Decoder Token
 tokenDecoder =
-    stringDecoder "token"
+    Decode.maybe (stringDecoder "token")

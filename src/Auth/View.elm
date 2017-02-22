@@ -23,6 +23,17 @@ loginFields creds errors =
     ]
 
 
+registerFields : Credentials -> Error -> List FieldConfig
+registerFields creds errors =
+    List.concat
+        [ List.intersperse
+            (FieldConfig "Email" UpdateEmail creds.email errors.email "email")
+            (loginFields creds errors)
+        , [ FieldConfig "Confirm Password" UpdatePasswordAgain creds.passwordAgain errors.passwordAgain "password"
+          ]
+        ]
+
+
 login : Credentials -> Error -> Html Msg
 login credentials errors =
     div [ class "card" ]
@@ -42,61 +53,19 @@ login credentials errors =
         ]
 
 
-register : Credentials -> Html Msg
-register credentials =
+register : Credentials -> Error -> Html Msg
+register credentials errors =
     div [ class "card" ]
         [ div [ class "card-block" ]
             [ h4 [ class "card-title text-center" ] [ text "Register" ]
             , hr [] []
             , p [ class "card-text credentials-input" ]
-                [ div [ class "form-group" ]
-                    [ input
-                        [ placeholder "Username"
-                        , class "form-control"
-                        , onInput UpdateUsername
-                        , value credentials.username
-                        ]
-                        []
-                    ]
-                , div [ class "form-group" ]
-                    [ input
-                        [ placeholder "Email"
-                        , class "form-control"
-                        , type_ "email"
-                        , onInput UpdateEmail
-                        , value credentials.email
-                        ]
-                        []
-                    ]
-                , div [ class "form-group" ]
-                    [ input
-                        [ placeholder "Password"
-                        , class "form-control"
-                        , type_ "password"
-                        , onInput UpdatePassword
-                        , value credentials.password
-                        ]
-                        []
-                    ]
-                , div [ class "form-group" ]
-                    [ input
-                        [ placeholder "Confirm Password"
-                        , class "form-control"
-                        , type_ "password"
-                        , onInput UpdatePasswordAgain
-                        , value credentials.passwordAgain
-                        ]
-                        []
-                    ]
-                , div [ class "text-center" ]
-                    [ button
-                        [ type_ "button"
-                        , class "btn btn-outline-primary"
-                        , onClick Register
-                        ]
-                        [ text "Register" ]
-                    ]
-                ]
+                (List.append
+                    (renderGeneralMessage (getFieldValue errors.message)
+                        :: (formGroups (registerFields credentials errors))
+                    )
+                    [ renderButton "Register" Register ]
+                )
             ]
         , div [ class "card-footer text-center" ]
             [ button [ class "btn btn-link toggle-auth", onClick ToggleLogin ] [ text "Already Registered?" ] ]

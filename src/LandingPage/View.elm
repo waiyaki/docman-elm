@@ -16,7 +16,7 @@ view model =
                 [ if model.showingLogin then
                     login model.credentials model.errors
                   else
-                    register model.credentials
+                    register model.credentials model.errors
                 ]
             ]
         ]
